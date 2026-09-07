@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Official Employment Application Portal</title>
+    <title>VSM IT WORK - Employment Application Portal</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -59,10 +59,10 @@
         
         <div id="headerBox" class="text-center mb-6 no-print">
             <div class="inline-block p-2 bg-transparent">
-                <img src="https://i.ibb.co/bjP0gJvQ/IMG-20260907-WA8525.jpg" alt="Company Logo" class="h-16 sm:h-20 mx-auto object-contain bg-transparent">
+                <img src="https://i.ibb.co/bjP0gJvQ/IMG-20260907-WA8525.jpg" alt="VSM IT WORK Logo" class="h-16 sm:h-20 mx-auto object-contain bg-transparent rounded-xl shadow-sm">
             </div>
-            <h1 class="text-xl sm:text-2xl font-extrabold tracking-tight text-slate-900 mt-1">JOB APPLICATION FORM</h1>
-            <p class="text-xs text-indigo-600 font-semibold">Official Corporate Recruitment & Enrollment Registration</p>
+            <h1 class="text-2xl sm:text-3xl font-black tracking-tight text-slate-900 mt-2">VSM IT WORK</h1>
+            <p class="text-xs sm:text-sm text-indigo-600 font-bold uppercase tracking-wider mt-1">Official Employment Application Portal</p>
         </div>
 
         <div id="stepper" class="bg-slate-50 border border-slate-200 rounded-2xl p-4 mb-6 no-print">
@@ -450,7 +450,7 @@
                         <label class="flex items-start space-x-3 cursor-pointer">
                             <input type="checkbox" required class="mt-1 h-4 w-4 text-indigo-600 rounded">
                             <span class="leading-relaxed">
-                                <strong>2. Document & Police Verification Consent:</strong> I authorize the organization to verify my educational certificates, background, and identity details via government portals.
+                                <strong>2. Document & Police Verification Consent:</strong> I authorize <strong>VSM IT WORK</strong> to verify my educational certificates, background, and identity details via government portals.
                             </span>
                         </label>
                     </div>
@@ -459,7 +459,7 @@
                         <label class="flex items-start space-x-3 cursor-pointer">
                             <input type="checkbox" required class="mt-1 h-4 w-4 text-indigo-600 rounded">
                             <span class="leading-relaxed">
-                                <strong>3. Terms & Confidentiality Consent:</strong> I agree to comply with all rules, privacy policies, and code of conduct associated with Digital Marketing & SMS Handling responsibilities.
+                                <strong>3. Terms & Confidentiality Consent:</strong> I agree to comply with all rules, privacy policies, and code of conduct associated with Digital Marketing & SMS Handling responsibilities at <strong>VSM IT WORK</strong>.
                             </span>
                         </label>
                     </div>
@@ -477,10 +477,10 @@
             <div class="grid grid-cols-1 sm:grid-cols-12 gap-4 pb-6 border-b border-slate-200 items-center">
                 
                 <div class="sm:col-span-9 space-y-2">
-                    <img src="https://i.ibb.co/bjP0gJvQ/IMG-20260907-WA8525.jpg" alt="Company Logo" class="h-14 object-contain bg-transparent">
-                    <h2 class="text-lg font-black tracking-wider text-slate-900 uppercase">Official Application Summary</h2>
-                    <p class="text-xs text-indigo-600 font-semibold">Digital Marketing & SMS Handling Division</p>
-                    <span class="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">
+                    <img src="https://i.ibb.co/bjP0gJvQ/IMG-20260907-WA8525.jpg" alt="VSM IT WORK Logo" class="h-14 object-contain bg-transparent rounded-lg">
+                    <h2 class="text-xl font-black tracking-wider text-slate-900 uppercase">VSM IT WORK</h2>
+                    <p class="text-xs text-indigo-600 font-bold">Official Digital Marketing & SMS Handling Application Summary</p>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300 mt-1">
                         <i class="fa-solid fa-circle-check mr-1"></i> Form Successfully Verified & Submitted
                     </span>
                 </div>
@@ -526,7 +526,7 @@
             <div class="flex justify-between items-end border-t border-slate-200 pt-4 mt-6">
                 <div>
                     <p class="text-[10px] text-slate-400">Security Hash: <span id="securityHash" class="font-mono text-slate-600"></span></p>
-                    <p class="text-[10px] text-slate-700 font-bold">Authorized Digital Recruitment Portal</p>
+                    <p class="text-[10px] text-slate-700 font-bold">Authorized Recruitment Portal - VSM IT WORK</p>
                 </div>
                 <div class="text-right">
                     <span class="px-3 py-1 bg-slate-100 text-slate-700 font-bold rounded-lg text-[10px] border border-slate-200">OFFICIAL RECORD</span>
@@ -554,7 +554,7 @@
         ];
 
         window.onload = function() {
-            const savedData = localStorage.getItem("masterJobApplicationSubmissionWhite");
+            const savedData = localStorage.getItem("vsmItWorkJobApplication");
             if (savedData) {
                 const parsed = JSON.parse(savedData);
                 renderPreview(parsed.data, parsed.refId, parsed.date, parsed.photo, parsed.sig);
@@ -648,7 +648,7 @@
                 if (value.trim() !== "") dataObj[key] = value; 
             });
 
-            const refId = "DM-SMS-" + Math.floor(100000 + Math.random() * 900000);
+            const refId = "VSM-" + Math.floor(100000 + Math.random() * 900000);
             const currentDate = new Date().toLocaleString();
 
             const payload = {
@@ -660,7 +660,7 @@
             };
 
             try {
-                localStorage.setItem("masterJobApplicationSubmissionWhite", JSON.stringify(payload));
+                localStorage.setItem("vsmItWorkJobApplication", JSON.stringify(payload));
             } catch(e) {}
 
             renderPreview(dataObj, refId, currentDate, photoBase64, sigBase64);

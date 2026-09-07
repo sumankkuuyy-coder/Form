@@ -200,6 +200,7 @@
             font-size: 13px;
             color: var(--text-muted);
             margin-bottom: 24px;
+            line-height: 1.5;
         }
 
         .details-grid {
@@ -392,21 +393,21 @@
     </form>
 
     <div class="success-overlay" id="successView">
-        <div class="badge-success"> Application Saved to D1 Database</div>
-        <div class="receipt-title">Acknowledgement Slip</div>
-        <p class="receipt-desc">Your application details have been saved in our Cloudflare D1 system.</p>
+        <div class="badge-success">✓ Application Submitted Successfully</div>
+        <div class="receipt-title">Application Acknowledgement</div>
+        <p class="receipt-desc">Thank you for applying. Your details have been registered in our recruitment system. Please save or print this acknowledgement for future reference.</p>
 
         <div class="details-grid">
             <div class="detail-item">
-                <span>Application ID</span>
+                <span>Reference ID</span>
                 <strong id="res-app-id">APP-894125</strong>
             </div>
             <div class="detail-item">
-                <span>Candidate Name</span>
+                <span>Applicant Name</span>
                 <strong id="res-name">Alex Morgan</strong>
             </div>
             <div class="detail-item">
-                <span>Phone Number</span>
+                <span>Contact Number</span>
                 <strong id="res-phone">+91 98765 43210</strong>
             </div>
             <div class="detail-item">
@@ -428,7 +429,7 @@
 
         const submitBtn = document.getElementById('submitBtn');
         submitBtn.disabled = true;
-        submitBtn.innerText = "Saving to Database...";
+        submitBtn.innerText = "Submitting Application...";
 
         const payload = {
             first_name: document.getElementById('first-name').value,
@@ -448,17 +449,15 @@
             const result = await response.json();
 
             if (result.success) {
-                // Generate UI Data
                 const appId = "APP-" + Math.floor(100000 + Math.random() * 900000);
                 document.getElementById('res-app-id').innerText = appId;
                 document.getElementById('res-name').innerText = payload.first_name + " " + payload.last_name;
                 document.getElementById('res-phone').innerText = payload.phone;
                 document.getElementById('res-position').innerText = payload.position;
 
-                // Show Success Screen
                 document.getElementById('applicationForm').style.display = 'none';
-                document.getElementById('header-title').innerText = 'Application Confirmation';
-                document.getElementById('header-sub').innerText = 'Data successfully stored in D1.';
+                document.getElementById('header-title').innerText = 'Application Status';
+                document.getElementById('header-sub').innerText = 'Your candidate profile has been registered.';
                 document.getElementById('successView').style.display = 'block';
             } else {
                 alert("Database Error: " + (result.error || result.message));
@@ -466,7 +465,7 @@
                 submitBtn.innerText = "Submit Application";
             }
         } catch (err) {
-            alert("Network Error! Please check Worker URL connection.");
+            alert("Network Error! Please verify your endpoint connection.");
             submitBtn.disabled = false;
             submitBtn.innerText = "Submit Application";
         }
@@ -474,5 +473,5 @@
 </script>
 
 </body>
-                    </html>
-                            
+    </html>
+    

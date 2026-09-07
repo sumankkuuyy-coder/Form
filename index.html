@@ -2,476 +2,698 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enterprise Career Portal</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Official Employment Application Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --primary: #0f172a;
-            --accent: #2563eb;
-            --accent-hover: #1d4ed8;
-            --bg: #f8fafc;
-            --card-bg: #ffffff;
-            --border: #e2e8f0;
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-            --success: #16a34a;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background: #ffffff;
+            color: #0f172a;
             -webkit-tap-highlight-color: transparent;
         }
+        input, select, textarea { font-size: 14px !important; }
 
-        body {
-            background-color: var(--bg);
-            color: var(--text-main);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 16px;
-        }
-
-        .portal-card {
-            background: var(--card-bg);
-            width: 100%;
-            max-width: 680px;
-            border-radius: 16px;
-            border: 1px solid var(--border);
+        .form-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
-            overflow: hidden;
-            position: relative;
         }
 
-        .brand-header {
-            padding: 24px 20px;
-            background: #ffffff;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .company-logo {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 14px;
-            font-weight: 700;
-            letter-spacing: 1px;
-            color: var(--accent);
-            text-transform: uppercase;
-            margin-bottom: 12px;
-        }
-
-        .company-logo svg {
-            width: 18px;
-            height: 18px;
-            fill: currentColor;
-        }
-
-        .brand-header h1 {
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--text-main);
-            margin-bottom: 4px;
-        }
-
-        .brand-header p {
-            font-size: 13px;
-            color: var(--text-muted);
-            line-height: 1.5;
-        }
-
-        form { padding: 20px; }
-
-        .section-block { margin-bottom: 24px; }
-
-        .section-title {
-            font-size: 12px;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: 14px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .section-title::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background-color: var(--border);
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 14px;
-        }
-
-        .form-field {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .form-field label {
-            font-size: 12px;
-            font-weight: 600;
-        }
-
-        .form-field label span { color: #ef4444; }
-
-        .form-field input, .form-field select, .form-field textarea {
+        .input-style {
             width: 100%;
-            padding: 12px 14px;
-            font-size: 14px;
-            background: #ffffff;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            outline: none;
-        }
-
-        .form-field input:focus, .form-field select:focus, .form-field textarea:focus {
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
-        }
-
-        .form-actions {
-            margin-top: 28px;
-            border-top: 1px solid var(--border);
-            padding-top: 20px;
-        }
-
-        .btn-submit {
-            width: 100%;
-            background-color: var(--primary);
-            color: #ffffff;
-            font-size: 14px;
-            font-weight: 600;
-            padding: 14px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .btn-submit:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        .security-note {
-            text-align: center;
-            font-size: 11px;
-            color: var(--text-muted);
-            margin-top: 12px;
-        }
-
-        /* SUCCESS SCREEN */
-        .success-overlay {
-            display: none;
-            padding: 24px;
-            background: #ffffff;
-        }
-
-        .badge-success {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background-color: #dcfce7;
-            color: var(--success);
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 700;
-            margin-bottom: 16px;
-        }
-
-        .receipt-title { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
-
-        .receipt-desc {
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-bottom: 24px;
-            line-height: 1.5;
-        }
-
-        .details-grid {
+            padding: 0.65rem 0.85rem;
             background-color: #f8fafc;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 16px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            margin-bottom: 24px;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.75rem;
+            color: #0f172a;
+            outline: none;
+            transition: all 0.2s;
         }
 
-        .detail-item span {
-            display: block;
-            font-size: 11px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            font-weight: 600;
+        .input-style:focus {
+            border-color: #4f46e5;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
         }
 
-        .detail-item strong {
-            font-size: 13px;
-            color: var(--text-main);
-        }
-
-        .btn-print {
-            width: 100%;
-            background-color: var(--accent);
-            color: #ffffff;
-            font-size: 14px;
-            font-weight: 600;
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-
-        @media (min-width: 640px) {
-            form, .success-overlay { padding: 32px; }
-            .form-grid.two-col { grid-template-columns: 1fr 1fr; }
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white !important; color: black !important; padding: 0 !important; }
+            .preview-card { 
+                box-shadow: none !important; 
+                border: 2px solid #0f172a !important; 
+                background: white !important;
+                color: black !important;
+                border-radius: 0 !important;
+                padding: 15px !important;
+            }
         }
     </style>
 </head>
-<body>
+<body class="p-3 sm:p-6 min-h-screen">
 
-<div class="portal-card">
-    <header class="brand-header">
-        <div class="company-logo">
-            <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-            Global Enterprise
-        </div>
-        <h1 id="header-title">Employment Application</h1>
-        <p id="header-sub">Complete the official application form below. All fields marked with (*) are mandatory.</p>
-    </header>
-
-    <form id="applicationForm" onsubmit="handleFormSubmit(event)">
+    <div class="max-w-5xl mx-auto w-full">
         
-        <div class="section-block">
-            <div class="section-title">01. Personal Information</div>
-            <div class="form-grid two-col">
-                <div class="form-field">
-                    <label for="first-name">First Name <span>*</span></label>
-                    <input type="text" id="first-name" name="first_name" placeholder="Alex" required>
-                </div>
-                <div class="form-field">
-                    <label for="last-name">Last Name <span>*</span></label>
-                    <input type="text" id="last-name" name="last_name" placeholder="Morgan" required>
-                </div>
-                <div class="form-field">
-                    <label for="dob">Date of Birth <span>*</span></label>
-                    <input type="date" id="dob" name="dob" required>
-                </div>
-                <div class="form-field">
-                    <label for="gender">Gender Identity <span>*</span></label>
-                    <select id="gender" name="gender" required>
-                        <option value="" disabled selected>Select option</option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
-                <div class="form-field">
-                    <label for="email">Email Address <span>*</span></label>
-                    <input type="email" id="email" name="email" placeholder="alex.morgan@company.com" required>
-                </div>
-                <div class="form-field">
-                    <label for="phone">Phone Number <span>*</span></label>
-                    <input type="tel" id="phone" name="phone" placeholder="+91 98765 43210" required>
-                </div>
+        <div id="headerBox" class="text-center mb-6 no-print">
+            <div class="inline-block p-2 bg-transparent">
+                <img src="https://ibb.co/vCHFxYdV" alt="Company Transparent Logo" class="h-16 sm:h-20 mx-auto object-contain bg-transparent">
+            </div>
+            <h1 class="text-xl sm:text-2xl font-extrabold tracking-tight text-slate-900 mt-1">JOB APPLICATION FORM</h1>
+            <p class="text-xs text-indigo-600 font-semibold">Official Corporate Recruitment & Enrollment Registration</p>
+        </div>
+
+        <div id="stepper" class="bg-slate-50 border border-slate-200 rounded-2xl p-4 mb-6 no-print">
+            <div class="flex justify-between items-center text-xs font-bold mb-2">
+                <span id="step-label" class="text-indigo-600">Step 1 of 5</span>
+                <span id="step-title" class="text-slate-800">Personal & Identity Details</span>
+            </div>
+            <div class="w-full bg-slate-200 h-2.5 rounded-full overflow-hidden">
+                <div id="progress-bar" class="bg-indigo-600 h-full w-1/5 transition-all duration-300"></div>
             </div>
         </div>
 
-        <div class="section-block">
-            <div class="section-title">02. Address Details</div>
-            <div class="form-grid">
-                <div class="form-field">
-                    <label for="res-address">Residential Address (Current) <span>*</span></label>
-                    <textarea id="res-address" name="residential_address" rows="2" placeholder="Street address, Apartment, Suite" required></textarea>
+        <form id="jobForm" onsubmit="return false;" class="form-card rounded-2xl p-5 sm:p-8 space-y-6 no-print">
+
+            <div id="section-1" class="form-section">
+                <h2 class="text-base font-bold text-slate-900 mb-4 pb-2 border-b border-slate-200 flex items-center">
+                    <i class="fa-solid fa-user-gear text-indigo-600 mr-2"></i> 1. Personal Identity, Photo & Signature
+                </h2>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                    <div class="p-4 bg-indigo-50/50 border border-indigo-200 rounded-xl text-center">
+                        <label class="block text-xs font-bold text-indigo-900 mb-2">Upload Candidate Photo *</label>
+                        <input type="file" id="photoInput" accept="image/*" required onchange="handleMediaUpload(event, 'photo')" class="w-full text-xs text-slate-600 file:mr-2 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-indigo-600 file:text-white hover:file:bg-indigo-700 cursor-pointer">
+                        <div id="photoPreviewBox" class="hidden mt-3">
+                            <img id="tempPhoto" class="h-24 w-20 object-cover mx-auto border-2 border-indigo-600 rounded-lg shadow-sm">
+                        </div>
+                    </div>
+
+                    <div class="p-4 bg-purple-50/50 border border-purple-200 rounded-xl text-center">
+                        <label class="block text-xs font-bold text-purple-900 mb-2">Upload Candidate Signature *</label>
+                        <input type="file" id="sigInput" accept="image/*" required onchange="handleMediaUpload(event, 'signature')" class="w-full text-xs text-slate-600 file:mr-2 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-purple-600 file:text-white hover:file:bg-purple-700 cursor-pointer">
+                        <div id="sigPreviewBox" class="hidden mt-3">
+                            <img id="tempSig" class="h-12 w-32 object-contain mx-auto border border-purple-300 bg-white rounded p-1">
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="form-grid two-col" style="margin-top: 14px;">
-                <div class="form-field">
-                    <label for="res-city">Current City <span>*</span></label>
-                    <input type="text" id="res-city" name="residential_city" placeholder="e.g. Bangalore" required>
-                </div>
-                <div class="form-field">
-                    <label for="res-pincode">Postal Code <span>*</span></label>
-                    <input type="text" id="res-pincode" name="residential_pincode" placeholder="e.g. 560001" required>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">First Name *</label>
+                        <input type="text" name="First Name" required class="input-style">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">Middle Name</label>
+                        <input type="text" name="Middle Name" class="input-style">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">Last Name *</label>
+                        <input type="text" name="Last Name" required class="input-style">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">Father's Full Name *</label>
+                        <input type="text" name="Father Name" required class="input-style">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">Mother's Full Name *</label>
+                        <input type="text" name="Mother Name" required class="input-style">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">Spouse Name (If Married)</label>
+                        <input type="text" name="Spouse Name" class="input-style">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">Date of Birth *</label>
+                        <input type="date" name="Date of Birth" required class="input-style">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">Gender *</label>
+                        <select name="Gender" required class="input-style bg-slate-50">
+                            <option value="">Select Gender</option>
+                            <option>Male</option>
+                            <option>Female</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">Marital Status *</label>
+                        <select name="Marital Status" required class="input-style bg-slate-50">
+                            <option value="">Select Status</option>
+                            <option>Single</option>
+                            <option>Married</option>
+                            <option>Divorced</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">Nationality *</label>
+                        <input type="text" name="Nationality" value="Indian" required class="input-style">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">Religion</label>
+                        <input type="text" name="Religion" class="input-style">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">Category / Caste</label>
+                        <select name="Category" class="input-style bg-slate-50">
+                            <option>General</option>
+                            <option>OBC</option>
+                            <option>SC</option>
+                            <option>ST</option>
+                            <option>EWS</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">Aadhar Card Number *</label>
+                        <input type="tel" name="Aadhar Number" maxlength="12" required class="input-style">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">PAN Card Number *</label>
+                        <input type="text" name="PAN Number" maxlength="10" required class="input-style uppercase">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">Voter ID / Driving License</label>
+                        <input type="text" name="Secondary Govt ID" class="input-style uppercase">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">Blood Group</label>
+                        <select name="Blood Group" class="input-style bg-slate-50">
+                            <option>A+</option><option>A-</option><option>B+</option><option>B-</option>
+                            <option>O+</option><option>O-</option><option>AB+</option><option>AB-</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">Physically Handicapped?</label>
+                        <select name="Physically Challenged" class="input-style bg-slate-50">
+                            <option>No</option>
+                            <option>Yes</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">Identification Mark</label>
+                        <input type="text" name="Body Identification Mark" class="input-style">
+                    </div>
                 </div>
             </div>
 
-            <div class="form-grid" style="margin-top: 14px;">
-                <div class="form-field">
-                    <label for="perm-address">Permanent Address <span>*</span></label>
-                    <textarea id="perm-address" name="permanent_address" rows="2" placeholder="Street address, Native/Home Address" required></textarea>
-                </div>
-            </div>
-            <div class="form-grid two-col" style="margin-top: 14px;">
-                <div class="form-field">
-                    <label for="perm-city">Permanent City <span>*</span></label>
-                    <input type="text" id="perm-city" name="permanent_city" placeholder="e.g. Mumbai" required>
-                </div>
-                <div class="form-field">
-                    <label for="perm-pincode">Permanent Postal Code <span>*</span></label>
-                    <input type="text" id="perm-pincode" name="permanent_pincode" placeholder="e.g. 400001" required>
-                </div>
-            </div>
-        </div>
+            <div id="section-2" class="form-section hidden">
+                <h2 class="text-base font-bold text-slate-900 mb-4 pb-2 border-b border-slate-200 flex items-center">
+                    <i class="fa-solid fa-map-location-dot text-indigo-600 mr-2"></i> 2. Contact, Address & Emergency Info
+                </h2>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">Primary Mobile Number *</label>
+                        <input type="tel" name="Mobile Number" required class="input-style">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">Alternate Mobile Number</label>
+                        <input type="tel" name="Alternate Mobile" class="input-style">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">WhatsApp Number *</label>
+                        <input type="tel" name="WhatsApp Number" required class="input-style">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">Primary Email Address *</label>
+                        <input type="email" name="Email Address" required class="input-style">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">Alternate Email</label>
+                        <input type="email" name="Alternate Email" class="input-style">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">Emergency Contact Person *</label>
+                        <input type="text" name="Emergency Contact Person" required class="input-style">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">Emergency Relation *</label>
+                        <input type="text" name="Emergency Relation" required class="input-style">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">Emergency Phone No. *</label>
+                        <input type="tel" name="Emergency Phone" required class="input-style">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">Preferred Communication</label>
+                        <select name="Preferred Contact Method" class="input-style bg-slate-50">
+                            <option>WhatsApp</option><option>Email</option><option>Phone Call</option>
+                        </select>
+                    </div>
 
-        <div class="section-block">
-            <div class="section-title">03. Academic Qualifications</div>
-            <div class="form-grid two-col">
-                <div class="form-field">
-                    <label for="degree">Highest Degree / Diploma <span>*</span></label>
-                    <input type="text" id="degree" name="degree" placeholder="e.g. Bachelor of Technology" required>
-                </div>
-                <div class="form-field">
-                    <label for="field-study">Field of Study <span>*</span></label>
-                    <input type="text" id="field-study" name="field_of_study" placeholder="e.g. Computer Science" required>
-                </div>
-            </div>
-            <div class="form-grid" style="margin-top: 14px;">
-                <div class="form-field">
-                    <label for="college">University / Institution Name <span>*</span></label>
-                    <input type="text" id="college" name="college_name" placeholder="Full name of College/University" required>
-                </div>
-            </div>
-            <div class="form-grid two-col" style="margin-top: 14px;">
-                <div class="form-field">
-                    <label for="pass-year">Year of Graduation <span>*</span></label>
-                    <input type="number" id="pass-year" name="passing_year" min="1980" max="2030" placeholder="YYYY" required>
-                </div>
-                <div class="form-field">
-                    <label for="percentage">Grade / CGPA / % <span>*</span></label>
-                    <input type="text" id="percentage" name="percentage" placeholder="e.g. 8.5 CGPA or 85%" required>
-                </div>
-            </div>
-        </div>
+                    <div class="sm:col-span-3"><hr class="border-slate-200 my-2"></div>
 
-        <div class="section-block">
-            <div class="section-title">04. Professional Background</div>
-            <div class="form-grid two-col">
-                <div class="form-field">
-                    <label for="position">Target Position <span>*</span></label>
-                    <input type="text" id="position" name="position" placeholder="e.g. Senior Software Engineer" required>
-                </div>
-                <div class="form-field">
-                    <label for="experience">Total Experience (Years) <span>*</span></label>
-                    <input type="number" id="experience" name="experience" min="0" max="50" placeholder="e.g. 3" required>
-                </div>
-            </div>
-            <div class="form-grid" style="margin-top: 14px;">
-                <div class="form-field">
-                    <label for="resume-link">Resume / Portfolio Link <span>*</span></label>
-                    <input type="url" id="resume-link" name="resume_link" placeholder="https://drive.google.com/your-resume-link" required>
-                </div>
-            </div>
-        </div>
+                    <div class="sm:col-span-3">
+                        <label class="block font-semibold mb-1 text-slate-700">Present Full Address *</label>
+                        <textarea name="Present Address" rows="2" required class="input-style"></textarea>
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">Present City / District *</label>
+                        <input type="text" name="Present City" required class="input-style">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">Present State *</label>
+                        <input type="text" name="Present State" required class="input-style">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">Present Pincode *</label>
+                        <input type="tel" name="Present Pincode" maxlength="6" required class="input-style">
+                    </div>
 
-        <div class="form-actions">
-            <button type="submit" id="submitBtn" class="btn-submit">
-                Submit Application
+                    <div class="sm:col-span-3">
+                        <label class="block font-semibold mb-1 text-slate-700">Permanent Full Address *</label>
+                        <textarea name="Permanent Address" rows="2" required class="input-style"></textarea>
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">Permanent City *</label>
+                        <input type="text" name="Permanent City" required class="input-style">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">Permanent State *</label>
+                        <input type="text" name="Permanent State" required class="input-style">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">Permanent Pincode *</label>
+                        <input type="tel" name="Permanent Pincode" maxlength="6" required class="input-style">
+                    </div>
+                </div>
+            </div>
+
+            <div id="section-3" class="form-section hidden">
+                <h2 class="text-base font-bold text-slate-900 mb-4 pb-2 border-b border-slate-200 flex items-center">
+                    <i class="fa-solid fa-graduation-cap text-indigo-600 mr-2"></i> 3. Comprehensive Educational Qualification
+                </h2>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">10th Board Name *</label>
+                        <input type="text" name="10th Board" required class="input-style">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">10th School Name *</label>
+                        <input type="text" name="10th School" required class="input-style">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">10th Passing Year & % *</label>
+                        <input type="text" name="10th Year & Percentage" placeholder="2018 - 85%" required class="input-style">
+                    </div>
+
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">12th Board / Diploma *</label>
+                        <input type="text" name="12th Board" required class="input-style">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">12th College / School *</label>
+                        <input type="text" name="12th School" required class="input-style">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">12th Passing Year & % *</label>
+                        <input type="text" name="12th Year & Percentage" placeholder="2020 - 82%" required class="input-style">
+                    </div>
+
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">Graduation Degree</label>
+                        <input type="text" name="Graduation Degree" placeholder="B.Tech, B.Com, BA, BCA" class="input-style">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">University / College</label>
+                        <input type="text" name="Graduation University" class="input-style">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">Graduation % / CGPA</label>
+                        <input type="text" name="Graduation Marks" class="input-style">
+                    </div>
+
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">Post Graduation (PG)</label>
+                        <input type="text" name="PG Degree" class="input-style">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">PG University</label>
+                        <input type="text" name="PG University" class="input-style">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">PG Percentage</label>
+                        <input type="text" name="PG Marks" class="input-style">
+                    </div>
+
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">Computer Diploma / Certificate</label>
+                        <input type="text" name="Computer Course" placeholder="ADCA, DCA, Tally" class="input-style">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">Technical / Specialized Skills</label>
+                        <input type="text" name="Technical Skills" placeholder="SEO, Excel, Copywriting" class="input-style">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">Languages Known</label>
+                        <input type="text" name="Languages Known" placeholder="Hindi, English" class="input-style">
+                    </div>
+                </div>
+            </div>
+
+            <div id="section-4" class="form-section hidden">
+                <h2 class="text-base font-bold text-slate-900 mb-4 pb-2 border-b border-slate-200 flex items-center">
+                    <i class="fa-solid fa-briefcase text-indigo-600 mr-2"></i> 4. Applied Post, Experience & Financial Info
+                </h2>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+                    
+                    <div>
+                        <label class="block font-semibold mb-1 text-indigo-700">Applied Position *</label>
+                        <input type="text" name="Applied Position" value="Digital Marketing / SMS Handling" readonly class="input-style font-bold text-indigo-600 cursor-not-allowed bg-indigo-50 border-indigo-300">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">Job Type Preference *</label>
+                        <select name="Job Type Preference" class="input-style bg-slate-50">
+                            <option>Full Time</option><option>Part Time</option><option>Work From Home</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">Total Work Experience *</label>
+                        <select name="Total Experience" class="input-style bg-slate-50">
+                            <option>Fresher</option><option>6 Months - 1 Year</option><option>1 - 3 Years</option><option>3+ Years</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">Previous Company Name</label>
+                        <input type="text" name="Previous Company" class="input-style">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">Previous Designation</label>
+                        <input type="text" name="Previous Designation" class="input-style">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">Previous Monthly CTC</label>
+                        <input type="text" name="Previous Salary" class="input-style">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">Expected Monthly Salary *</label>
+                        <input type="text" name="Expected Salary" required class="input-style">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">Notice Period / Joining Time *</label>
+                        <select name="Notice Period" class="input-style bg-slate-50">
+                            <option>Immediate</option><option>7 Days</option><option>15 Days</option><option>30 Days</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">SMS Handling Knowledge?</label>
+                        <select name="SMS Portal Knowledge" class="input-style bg-slate-50">
+                            <option>Yes - Expert</option><option>Intermediate</option><option>Basic / Beginner</option>
+                        </select>
+                    </div>
+
+                    <div class="sm:col-span-3"><hr class="border-slate-200 my-2"></div>
+
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">Bank Account Holder Name *</label>
+                        <input type="text" name="Bank Account Name" required class="input-style">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">Bank Name *</label>
+                        <input type="text" name="Bank Name" required class="input-style">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">Account Number *</label>
+                        <input type="text" name="Bank Account Number" required class="input-style">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">IFSC Code *</label>
+                        <input type="text" name="Bank IFSC Code" required class="input-style uppercase">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">Branch Name</label>
+                        <input type="text" name="Bank Branch" class="input-style">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">UPI ID / PhonePe Number</label>
+                        <input type="text" name="UPI ID" class="input-style">
+                    </div>
+                </div>
+            </div>
+
+            <div id="section-5" class="form-section hidden">
+                <h2 class="text-base font-bold text-slate-900 mb-4 pb-2 border-b border-slate-200 flex items-center">
+                    <i class="fa-solid fa-file-contract text-indigo-600 mr-2"></i> 5. Mandatory Legal & Integrity Declarations
+                </h2>
+                <div class="space-y-3 text-xs text-slate-700">
+                    <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+                        <label class="flex items-start space-x-3 cursor-pointer">
+                            <input type="checkbox" required class="mt-1 h-4 w-4 text-indigo-600 rounded">
+                            <span class="leading-relaxed">
+                                <strong>1. Truthfulness Declaration:</strong> I hereby declare that all provided registration details are true, complete, and correct to the best of my knowledge.
+                            </span>
+                        </label>
+                    </div>
+
+                    <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+                        <label class="flex items-start space-x-3 cursor-pointer">
+                            <input type="checkbox" required class="mt-1 h-4 w-4 text-indigo-600 rounded">
+                            <span class="leading-relaxed">
+                                <strong>2. Document & Police Verification Consent:</strong> I authorize the organization to verify my educational certificates, background, and identity details via government portals.
+                            </span>
+                        </label>
+                    </div>
+
+                    <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+                        <label class="flex items-start space-x-3 cursor-pointer">
+                            <input type="checkbox" required class="mt-1 h-4 w-4 text-indigo-600 rounded">
+                            <span class="leading-relaxed">
+                                <strong>3. Terms & Confidentiality Consent:</strong> I agree to comply with all rules, privacy policies, and code of conduct associated with Digital Marketing & SMS Handling responsibilities.
+                            </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-between items-center pt-4 border-t border-slate-200">
+                <button type="button" id="prevBtn" onclick="nextPrev(-1)" class="px-5 py-2.5 text-xs font-bold text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-xl hidden">Previous</button>
+                <button type="button" id="nextBtn" onclick="nextPrev(1)" class="px-6 py-2.5 text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 rounded-xl ml-auto shadow-md transition-all">Next Step</button>
+            </div>
+        </form>
+
+        <div id="previewCard" class="bg-white text-slate-900 rounded-3xl p-6 sm:p-8 shadow-xl border border-slate-200 hidden preview-card text-xs">
+            
+            <div class="grid grid-cols-1 sm:grid-cols-12 gap-4 pb-6 border-b border-slate-200 items-center">
+                
+                <div class="sm:col-span-9 space-y-2">
+                    <img src="https://i.ibb.co/4w88r99L/1788506069151.png" alt="Company Logo" class="h-14 object-contain bg-transparent">
+                    <h2 class="text-lg font-black tracking-wider text-slate-900 uppercase">Official Application Summary</h2>
+                    <p class="text-xs text-indigo-600 font-semibold">Digital Marketing & SMS Handling Division</p>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">
+                        <i class="fa-solid fa-circle-check mr-1"></i> Form Successfully Verified & Submitted
+                    </span>
+                </div>
+
+                <div class="sm:col-span-3 flex flex-col items-center justify-center bg-slate-50 p-3 rounded-2xl border border-slate-200">
+                    <div class="w-24 h-28 border-2 border-indigo-600 rounded-xl overflow-hidden bg-white mb-2">
+                        <img id="previewPhoto" class="w-full h-full object-cover">
+                    </div>
+                    <div class="w-28 h-8 border border-slate-300 rounded bg-white p-0.5 flex items-center justify-center">
+                        <img id="previewSig" class="max-h-full max-w-full object-contain">
+                    </div>
+                    <span class="text-[9px] text-slate-500 mt-1 font-semibold">Photo & Signature</span>
+                </div>
+
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 p-4 bg-indigo-50/60 rounded-2xl border border-indigo-100 my-6">
+                <div>
+                    <span class="text-[10px] text-indigo-700 font-bold block">APPLICATION REF ID</span>
+                    <strong id="appRefId" class="text-sm font-bold text-slate-900 font-mono"></strong>
+                </div>
+                <div>
+                    <span class="text-[10px] text-indigo-700 font-bold block">APPLIED POSITION</span>
+                    <strong class="text-xs font-bold text-slate-900">Digital Marketing/SMS</strong>
+                </div>
+                <div>
+                    <span class="text-[10px] text-indigo-700 font-bold block">SUBMISSION DATE</span>
+                    <strong id="submissionDate" class="text-xs text-slate-900"></strong>
+                </div>
+                <div>
+                    <span class="text-[10px] text-indigo-700 font-bold block">STATUS</span>
+                    <strong class="text-xs text-emerald-700 font-bold">LOCKED & RECORDED</strong>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xs font-bold uppercase text-indigo-700 tracking-widest mb-3 pb-1 border-b border-slate-200">Complete Response Records</h3>
+                
+                <div id="previewGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                    </div>
+            </div>
+
+            <div class="flex justify-between items-end border-t border-slate-200 pt-4 mt-6">
+                <div>
+                    <p class="text-[10px] text-slate-400">Security Hash: <span id="securityHash" class="font-mono text-slate-600"></span></p>
+                    <p class="text-[10px] text-slate-700 font-bold">Authorized Digital Recruitment Portal</p>
+                </div>
+                <div class="text-right">
+                    <span class="px-3 py-1 bg-slate-100 text-slate-700 font-bold rounded-lg text-[10px] border border-slate-200">OFFICIAL RECORD</span>
+                </div>
+            </div>
+
+            <button onclick="window.print()" class="w-full mt-6 py-3.5 bg-slate-900 hover:bg-black text-white font-bold text-xs rounded-2xl no-print shadow-lg flex items-center justify-center space-x-2 transition-all">
+                <i class="fa-solid fa-print text-sm"></i>
+                <span>Print Official Summary / Save PDF</span>
             </button>
-            <div class="security-note">
-                Encrypted & Secure Candidate Registration
-            </div>
         </div>
 
-    </form>
-
-    <div class="success-overlay" id="successView">
-        <div class="badge-success">✓ Application Submitted Successfully</div>
-        <div class="receipt-title">Application Acknowledgement</div>
-        <p class="receipt-desc">Thank you for applying. Your details have been registered in our recruitment system. Please save or print this acknowledgement for future reference.</p>
-
-        <div class="details-grid">
-            <div class="detail-item">
-                <span>Reference ID</span>
-                <strong id="res-app-id">APP-894125</strong>
-            </div>
-            <div class="detail-item">
-                <span>Applicant Name</span>
-                <strong id="res-name">Alex Morgan</strong>
-            </div>
-            <div class="detail-item">
-                <span>Contact Number</span>
-                <strong id="res-phone">+91 98765 43210</strong>
-            </div>
-            <div class="detail-item">
-                <span>Applied Position</span>
-                <strong id="res-position">Software Engineer</strong>
-            </div>
-        </div>
-
-        <button type="button" class="btn-print" onclick="window.print()">Download / Print Slip</button>
     </div>
 
-</div>
+    <script>
+        let currentTab = 0;
+        let photoBase64 = "";
+        let sigBase64 = "";
+        const stepTitles = [
+            "Personal Identity, Photo & Signature", 
+            "Contact, Address & Emergency Info", 
+            "Comprehensive Educational Qualification", 
+            "Applied Post, Experience & Financial Info", 
+            "Mandatory Legal & Integrity Declarations"
+        ];
 
-<script>
-    const WORKER_URL = "https://wandering-wind-ecf4.sumankkuuyy.workers.dev/";
-
-    async function handleFormSubmit(event) {
-        event.preventDefault();
-
-        const submitBtn = document.getElementById('submitBtn');
-        submitBtn.disabled = true;
-        submitBtn.innerText = "Submitting Application...";
-
-        const payload = {
-            first_name: document.getElementById('first-name').value,
-            last_name: document.getElementById('last-name').value,
-            phone: document.getElementById('phone').value,
-            email: document.getElementById('email').value,
-            position: document.getElementById('position').value
+        window.onload = function() {
+            const savedData = localStorage.getItem("masterJobApplicationSubmissionWhite");
+            if (savedData) {
+                const parsed = JSON.parse(savedData);
+                renderPreview(parsed.data, parsed.refId, parsed.date, parsed.photo, parsed.sig);
+            } else {
+                showTab(currentTab);
+            }
         };
 
-        try {
-            const response = await fetch(WORKER_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
+        function handleMediaUpload(e, type) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(evt) {
+                    if (type === 'photo') {
+                        photoBase64 = evt.target.result;
+                        document.getElementById("tempPhoto").src = photoBase64;
+                        document.getElementById("photoPreviewBox").classList.remove("hidden");
+                    } else if (type === 'signature') {
+                        sigBase64 = evt.target.result;
+                        document.getElementById("tempSig").src = sigBase64;
+                        document.getElementById("sigPreviewBox").classList.remove("hidden");
+                    }
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function showTab(n) {
+            let tabs = document.getElementsByClassName("form-section");
+            for (let i = 0; i < tabs.length; i++) tabs[i].style.display = "none";
+            tabs[n].style.display = "block";
+            
+            document.getElementById("prevBtn").classList.toggle("hidden", n === 0);
+            
+            if (n === (tabs.length - 1)) {
+                document.getElementById("nextBtn").innerText = "Submit Full Application";
+                document.getElementById("nextBtn").className = "px-6 py-2.5 text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 rounded-xl ml-auto shadow-md transition-all";
+            } else {
+                document.getElementById("nextBtn").innerText = "Next Step";
+                document.getElementById("nextBtn").className = "px-6 py-2.5 text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 rounded-xl ml-auto shadow-md transition-all";
+            }
+
+            document.getElementById("step-label").innerText = `Step ${n + 1} of 5`;
+            document.getElementById("step-title").innerText = stepTitles[n];
+            document.getElementById("progress-bar").style.width = ((n + 1) * 20) + "%";
+        }
+
+        function nextPrev(n) {
+            let tabs = document.getElementsByClassName("form-section");
+            if (n === 1 && !validateForm()) return false;
+
+            tabs[currentTab].style.display = "none";
+            currentTab += n;
+
+            if (currentTab >= tabs.length) {
+                submitForm();
+                return false;
+            }
+
+            showTab(currentTab);
+        }
+
+        function validateForm() {
+            let valid = true;
+            let inputs = document.getElementsByClassName("form-section")[currentTab].querySelectorAll("input, select, textarea");
+            
+            inputs.forEach(input => {
+                if (input.hasAttribute("required")) {
+                    if (input.type === 'checkbox' && !input.checked) valid = false;
+                    else if (input.id === 'photoInput' && !photoBase64) valid = false;
+                    else if (input.id === 'sigInput' && !sigBase64) valid = false;
+                    else if (!input.value.trim()) {
+                        input.classList.add("border-red-500");
+                        valid = false;
+                    } else {
+                        input.classList.remove("border-red-500");
+                    }
+                }
             });
 
-            const result = await response.json();
-
-            if (result.success) {
-                const appId = "APP-" + Math.floor(100000 + Math.random() * 900000);
-                document.getElementById('res-app-id').innerText = appId;
-                document.getElementById('res-name').innerText = payload.first_name + " " + payload.last_name;
-                document.getElementById('res-phone').innerText = payload.phone;
-                document.getElementById('res-position').innerText = payload.position;
-
-                document.getElementById('applicationForm').style.display = 'none';
-                document.getElementById('header-title').innerText = 'Application Status';
-                document.getElementById('header-sub').innerText = 'Your candidate profile has been registered.';
-                document.getElementById('successView').style.display = 'block';
-            } else {
-                alert("Database Error: " + (result.error || result.message));
-                submitBtn.disabled = false;
-                submitBtn.innerText = "Submit Application";
-            }
-        } catch (err) {
-            alert("Network Error! Please verify your endpoint connection.");
-            submitBtn.disabled = false;
-            submitBtn.innerText = "Submit Application";
+            if (!valid) alert("Kripya Photo, Signature aur sabhi Required Fields ko sahi se bharein.");
+            return valid;
         }
-    }
-</script>
 
+        function submitForm() {
+            const form = document.getElementById("jobForm");
+            const formData = new FormData(form);
+            const dataObj = {};
+
+            formData.forEach((value, key) => { 
+                if (value.trim() !== "") dataObj[key] = value; 
+            });
+
+            const refId = "DM-SMS-" + Math.floor(100000 + Math.random() * 900000);
+            const currentDate = new Date().toLocaleString();
+
+            const payload = {
+                data: dataObj,
+                refId: refId,
+                date: currentDate,
+                photo: photoBase64,
+                sig: sigBase64
+            };
+
+            try {
+                localStorage.setItem("masterJobApplicationSubmissionWhite", JSON.stringify(payload));
+            } catch(e) {}
+
+            renderPreview(dataObj, refId, currentDate, photoBase64, sigBase64);
+        }
+
+        function renderPreview(data, refId, date, photo, sig) {
+            document.getElementById("jobForm").classList.add("hidden");
+            document.getElementById("stepper").classList.add("hidden");
+            document.getElementById("headerBox").classList.add("hidden");
+            
+            document.getElementById("previewCard").classList.remove("hidden");
+
+            document.getElementById("appRefId").innerText = refId;
+            document.getElementById("submissionDate").innerText = date;
+            document.getElementById("previewPhoto").src = photo || "https://via.placeholder.com/150";
+            document.getElementById("previewSig").src = sig || "https://via.placeholder.com/150";
+            document.getElementById("securityHash").innerText = "SHA256-" + Math.random().toString(36).substring(2, 10).toUpperCase();
+
+            const gridContainer = document.getElementById("previewGrid");
+            gridContainer.innerHTML = "";
+
+            for (const [key, value] of Object.entries(data)) {
+                if (key !== 'on') {
+                    const card = document.createElement("div");
+                    card.className = "p-2.5 bg-slate-50 rounded-xl border border-slate-200 flex flex-col justify-between";
+                    card.innerHTML = `
+                        <span class="text-[10px] text-slate-500 font-semibold block">${key}</span>
+                        <strong class="text-xs text-slate-900 font-bold mt-0.5">${value}</strong>
+                    `;
+                    gridContainer.appendChild(card);
+                }
+            }
+        }
+    </script>
 </body>
-    </html>
-    
+</html>
